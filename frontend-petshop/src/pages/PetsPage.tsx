@@ -48,6 +48,7 @@ export default function PetsPage() {
                   <TableCell>Id</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Raça</TableCell>
+                  <TableCell>Espécie</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -58,6 +59,7 @@ export default function PetsPage() {
                       <TableCell>{pets.id}</TableCell>
                       <TableCell>{pets.name}</TableCell>
                       <TableCell>{pets.breed}</TableCell>
+                      <TableCell>{pets.type}</TableCell>
                       <TableCell>
                         <div className="crud-buttons">
                           <PrimaryButton variantStyle="primary">
