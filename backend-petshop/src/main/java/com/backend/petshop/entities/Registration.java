@@ -35,14 +35,18 @@ public class Registration {
     @JoinColumn(name = "service_id")
     private AvailableService service;
     
-	public Registration() {
-	}
-	public Registration(Long id, Double finalPrice, Instant moment, Integer serviceStatus) {
+	public Registration() {}
+	
+	public Registration(Long id, Double finalPrice, Instant moment, ServiceStatus serviceStatus, Pet pet,
+			AvailableService service) {
 		this.id = id;
 		this.finalPrice = finalPrice;
 		this.moment = moment;
+		this.serviceStatus = serviceStatus;
+		this.pet = pet;
+		this.service = service;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +70,18 @@ public class Registration {
 	}
 	public void setServiceStatus(ServiceStatus serviceStatus) {
 		this.serviceStatus = serviceStatus;
+	}
+	public Pet getPet() {
+		return pet;
+	}
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+	public AvailableService getService() {
+		return service;
+	}
+	public void setService(AvailableService service) {
+		this.service = service;
 	}
 	
 	@Override
