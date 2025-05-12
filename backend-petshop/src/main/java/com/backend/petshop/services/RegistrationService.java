@@ -3,6 +3,7 @@ package com.backend.petshop.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.backend.petshop.entities.Registration;
@@ -12,6 +13,7 @@ import com.backend.petshop.services.exceptions.ResourceNotFoundException;
 @Service
 public class RegistrationService {
 
+	@Autowired
 	private RegistrationRepository repository;
 	
 	public List<Registration> findAll() {
