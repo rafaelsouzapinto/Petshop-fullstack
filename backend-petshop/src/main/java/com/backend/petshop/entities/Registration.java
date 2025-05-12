@@ -6,9 +6,13 @@ import java.util.Objects;
 import com.backend.petshop.entities.enums.ServiceStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,11 +24,20 @@ public class Registration {
 	private Long id;
 	private Double finalPrice;
 	private Instant moment;
-	private ServiceStatus serviceStatus;
+    @Enumerated(EnumType.STRING)
+    private ServiceStatus serviceStatus;
 	
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private AvailableService service;
+    
 	public Registration() {
 	}
-	public Registration(Long id, Double finalPrice, Instant moment, ServiceStatus serviceStatus) {
+	public Registration(Long id, Double finalPrice, Instant moment, Integer serviceStatus) {
 		this.id = id;
 		this.finalPrice = finalPrice;
 		this.moment = moment;
@@ -47,6 +60,12 @@ public class Registration {
 	}
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}
+	public ServiceStatus getServiceStatus() {
+		return serviceStatus;
+	}
+	public void setServiceStatus(ServiceStatus serviceStatus) {
+		this.serviceStatus = serviceStatus;
 	}
 	
 	@Override
