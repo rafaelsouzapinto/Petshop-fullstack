@@ -14,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.petshop.entities.Client;
-import com.backend.petshop.services.ClientService;
+import com.backend.petshop.entities.AvailableService;
+import com.backend.petshop.services.AvailableServiceService;
 
 @RestController
-@RequestMapping("/clients")
-public class ClientController {
-	
+@RequestMapping("/available-service")
+public class AvailableServiceController {
+
 	@Autowired
-	private ClientService service;
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Client> findById(@PathVariable Long id) {
-		Client client = service.findById(id);
-		return ResponseEntity.ok(client);
-	}
+	private AvailableServiceService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Client>> findAll() {
-		List<Client> list = service.findAll();
+	public ResponseEntity<List<AvailableService>> findAll() {
+		List<AvailableService> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<AvailableService> findById(@PathVariable Long id) {
+		AvailableService obj = service.findById(id);
+		return ResponseEntity.ok(obj);
+	}
+	
 	@PostMapping
-	public ResponseEntity<Client> insert(@RequestBody Client client) {
-		Client obj = service.insert(client);
+	public ResponseEntity<AvailableService> insert(@RequestBody AvailableService availableService) {
+		AvailableService obj = service.insert(availableService);
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> update(@RequestBody Client client, @PathVariable Long id) {
-		Client obj = service.update(client, id);
+	public ResponseEntity<AvailableService> update(@RequestBody AvailableService availableService, @PathVariable Long id) {
+		AvailableService obj = service.update(availableService, id);
 		return ResponseEntity.ok(obj);
 	}
 	
