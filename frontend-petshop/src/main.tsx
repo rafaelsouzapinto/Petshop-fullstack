@@ -8,6 +8,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import ClientPage from "./pages/ClientPage.tsx";
+import App from "./App.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/pets",
     element: <PetsPage />,
+  },
+  {
+    path: "/",
+    element: <App />,
   },
 ]);
 
