@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 900px;
+  height: 500px;
+  background-color: #779bd088;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+}
