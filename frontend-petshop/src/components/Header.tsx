@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <div className="header-container">
       <div className="header">
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <img className="logo-image" src="../logo1-160.png" alt="logo" />
         </div>
         <div className="buttons">
