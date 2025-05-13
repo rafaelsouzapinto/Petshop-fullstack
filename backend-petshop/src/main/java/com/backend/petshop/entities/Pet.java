@@ -1,8 +1,11 @@
 package com.backend.petshop.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.backend.petshop.entities.enums.AnimalSex;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +32,10 @@ public class Pet {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pet")
+	private List<Registration> registrations = new ArrayList<>();
 	
 	public Pet() {
 	}
