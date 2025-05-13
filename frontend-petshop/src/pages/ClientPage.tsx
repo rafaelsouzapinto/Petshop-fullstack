@@ -13,18 +13,28 @@ import Client from "../interfaces/Client";
 import { UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import Header from "../components/Header";
+import DeleteClientDialog from "../components/DeleteClientDialog";
 
 const url = "http://localhost:8080/clients";
 
 export default function ClientPage() {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
+
+  const handleDeleteClick = (client: Client) => {
+    setClientToDelete(client);
+    setDeleteDialogOpen(true);
+  };
+
   const [clients, setClients] = useState<Client[]>([]);
 
+  const fetchData = async () => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setClients(data);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(url);
-      const data = await res.json();
-      setClients(data);
-    };
     fetchData();
   }, []);
 
@@ -61,7 +71,10 @@ export default function ClientPage() {
                         <PrimaryButton variantStyle="primary">
                           <UserPen fontSize="medium" />
                         </PrimaryButton>
-                        <PrimaryButton variantStyle="delete">
+                        <PrimaryButton
+                          variantStyle="delete"
+                          onClick={() => handleDeleteClick(client)}
+                        >
                           <DeleteIcon fontSize="medium" />
                         </PrimaryButton>
                       </div>
@@ -73,6 +86,13 @@ export default function ClientPage() {
           </Table>
         </div>
       </div>
+      <DeleteClientDialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        client={clientToDelete}
+        onClientDeleted={fetchData}
+        deleteUrl={url}
+      />
     </>
   );
 }
