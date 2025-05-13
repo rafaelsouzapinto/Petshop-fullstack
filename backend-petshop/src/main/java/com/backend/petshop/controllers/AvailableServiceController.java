@@ -30,7 +30,7 @@ public class AvailableServiceController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<AvailableService> findById(@PathVariable Long id) {
 		AvailableService obj = service.findById(id);
 		return ResponseEntity.ok(obj);
@@ -42,13 +42,13 @@ public class AvailableServiceController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<AvailableService> update(@RequestBody AvailableService availableService, @PathVariable Long id) {
 		AvailableService obj = service.update(availableService, id);
 		return ResponseEntity.ok(obj);
 	}
 	
-	@DeleteMapping("{/id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

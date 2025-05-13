@@ -29,7 +29,7 @@ public class RegistrationController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Registration> findById(@PathVariable Long id) {
 		Registration obj = service.findById(id);
 		return ResponseEntity.ok(obj);
@@ -41,7 +41,7 @@ public class RegistrationController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}
 	
-	@PutMapping("{/id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Registration> update (@RequestBody Registration registration, @PathVariable Long id) {
 		Registration obj = service.update(registration, id);
 		return ResponseEntity.ok(obj);
