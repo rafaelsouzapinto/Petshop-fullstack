@@ -14,24 +14,37 @@ import { UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import Header from "../components/Header";
 import DeleteClientDialog from "../components/DeleteClientDialog";
+import axios from "axios";
+import AddClientDialog from "../components/AddClientDialog";
 
 const url = "http://localhost:8080/clients";
 
 export default function ClientPage() {
+  const [clients, setClients] = useState<Client[]>([]);
+
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
+
+  const [openAddDialog, setOpenAddDialog] = useState(false);
+  const handleOpenAddDialog = () => setOpenAddDialog(true);
+  const handleCloseAddDialog = () => setOpenAddDialog(false);
+
+  const handleClientAdded = () => {
+    fetchData();
+  };
 
   const handleDeleteClick = (client: Client) => {
     setClientToDelete(client);
     setDeleteDialogOpen(true);
   };
 
-  const [clients, setClients] = useState<Client[]>([]);
-
   const fetchData = async () => {
-    const res = await fetch(url);
-    const data = await res.json();
-    setClients(data);
+    try {
+      const response = await axios.get<Client[]>(url);
+      setClients(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar os clientes:", error);
+    }
   };
 
   useEffect(() => {
@@ -43,7 +56,7 @@ export default function ClientPage() {
       <Header />
       <div className="filter-container">
         {/* Botão para adicionar usuário */}
-        <PrimaryButton variantStyle="primary">
+        <PrimaryButton variantStyle="primary" onClick={handleOpenAddDialog}>
           <UserRoundPlus size={18} /> adicionar
         </PrimaryButton>
       </div>
@@ -92,6 +105,13 @@ export default function ClientPage() {
         client={clientToDelete}
         onClientDeleted={fetchData}
         deleteUrl={url}
+      />
+
+      <AddClientDialog
+        open={openAddDialog}
+        onClose={handleCloseAddDialog}
+        onClientAdded={handleClientAdded}
+        postUrl="http://localhost:8080/clients"
       />
     </>
   );

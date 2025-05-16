@@ -1,12 +1,11 @@
 import "./App.css";
 import Header from "./components/Header";
-import RegistrationPage from "./pages/RegistrationPage";
 
 function App() {
   return (
     <>
       <Header />
-      <RegistrationPage />
+      <h1>Exibição de cards de consultas</h1>
     </>
   );
 }

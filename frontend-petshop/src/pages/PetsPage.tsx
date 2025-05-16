@@ -15,20 +15,26 @@ import { useState, useEffect } from "react";
 import Pets from "../interfaces/Pets";
 import { UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
+import axios from "axios";
 
 const url = "http://localhost:8080/pets";
 
 export default function PetsPage() {
   const [pets, setPets] = useState<Pets[]>([]);
 
+  const ClientFetchData = async () => {
+    try {
+      const response = await axios.get<Pets[]>(url);
+      setPets(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar os pets:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(url);
-      const data = await res.json();
-      setPets(data);
-    };
-    fetchData();
+    ClientFetchData();
   }, []);
+
   return (
     <div>
       <>
