@@ -30,7 +30,6 @@ export default function RegistrationPage() {
   });
 
   const handleSubmit = async () => {
-    // Verificação simples: campos não podem estar vazios
     if (
       !formData.amount ||
       !formData.status ||
@@ -42,24 +41,21 @@ export default function RegistrationPage() {
     }
 
     try {
-      // Cria o objeto com os dados
       const dataToSend = {
-        finalPrice: parseFloat(formData.amount), // convertendo para número
+        finalPrice: parseFloat(formData.amount),
         serviceStatus: formData.status,
         pet: {
           id: parseInt(formData.petId),
         },
         service: {
-          id: parseInt(formData.petId),
+          id: parseInt(formData.serviceId),
         },
       };
 
-      // Envia os dados para o backend
       await axios.post("http://localhost:8080/registration", dataToSend);
 
       alert("Consulta cadastrada com sucesso!");
 
-      // Resetar o formulário
       setFormData({
         amount: "",
         status: "",
@@ -134,7 +130,7 @@ export default function RegistrationPage() {
   };
 
   {
-    /* Faz a requisição dos dois métodos ao carregar a página */
+    /* Faz a requisição dos métodos ao carregar a página */
   }
   useEffect(() => {
     PetsFetchData();

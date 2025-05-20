@@ -1,0 +1,10 @@
+@media (min-width: 768px) {
+  .services-container {
+    width: 1200px;
+    background-color: bisque;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: auto;
+  }
+}
