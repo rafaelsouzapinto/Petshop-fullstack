@@ -4,9 +4,10 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Button,
 } from "@mui/material";
+import axios from "axios";
 import { useState, useEffect } from "react";
+import PrimaryButton from "./PrimaryButton";
 
 interface EditClientDialogProps {
   open: boolean;
@@ -34,20 +35,16 @@ export default function EditClientDialog({
   }, [client]);
 
   const handleUpdateClient = async () => {
-    const updatedClient = { id: client?.id, name, cpf };
+    if (!client) return;
 
-    const res = await fetch(`${putUrl}/${client?.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedClient),
-    });
+    const updatedClient = { id: client.id, name, cpf };
 
-    if (res.ok) {
+    try {
+      await axios.put(`${putUrl}/${client.id}`, updatedClient);
       onClose();
-      onClientUpdated(); // Atualiza a lista
-    } else {
+      onClientUpdated(); // Atualiza a lista de clientes
+    } catch (error) {
+      console.error("Erro ao atualizar cliente:", error);
       alert("Erro ao atualizar cliente");
     }
   };
@@ -72,14 +69,17 @@ export default function EditClientDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button
+        <PrimaryButton onClick={onClose} variantStyle="delete">
+          Cancelar
+        </PrimaryButton>
+        <PrimaryButton
           onClick={handleUpdateClient}
           variant="contained"
           color="primary"
+          variantStyle="primary"
         >
           Salvar
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

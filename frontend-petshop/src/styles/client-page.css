@@ -10,6 +10,22 @@ body {
   display: grid;
 }
 
+.filter-container {
+  height: 100px;
+  gap: 1rem;
+  display: grid;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 1100px;
@@ -37,10 +53,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 150px;
+    height: 100px;
     margin: auto;
     max-width: 1100px;
     padding: 10px 30px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .crud-buttons {

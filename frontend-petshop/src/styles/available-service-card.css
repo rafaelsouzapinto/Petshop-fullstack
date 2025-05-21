@@ -1,0 +1,26 @@
+.available-service {
+  width: 280px;
+  height: 400px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #779bd0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: auto;
+}
+
+.available-service-image {
+  width: 250px;
+  height: 250px;
+  background-color: aliceblue;
+}
+
+@media (min-width: 768px) {
+  .available-service {
+    width: 270px;
+    height: 420px;
+    display: grid;
+  }
+}
