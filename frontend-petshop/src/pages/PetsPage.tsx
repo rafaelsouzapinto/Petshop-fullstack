@@ -2,11 +2,13 @@ import Header from "../components/Header";
 import "../styles/pets-page.css";
 
 import {
+  MenuItem,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -34,6 +36,9 @@ export default function PetsPage() {
   const [petToDelete, setPetToDelete] = useState<Pets | null>(null);
 
   const [openAddDialog, setOpenAddDialog] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
 
   const handleOpenEditDialog = (pet: Pets) => {
     setSelectedPet(pet);
@@ -86,10 +91,32 @@ export default function PetsPage() {
       <>
         <Header />
         <div className="filter-container">
-          {/* Botão para adicionar pet */}
           <PrimaryButton variantStyle="primary" onClick={handleOpenAddDialog}>
             <UserRoundPlus size={18} /> adicionar
           </PrimaryButton>
+
+          <TextField
+            label="Buscar por nome"
+            variant="outlined"
+            size="small"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <TextField
+            select
+            label="Filtrar por espécie"
+            variant="outlined"
+            size="small"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+            style={{ minWidth: 150 }}
+          >
+            <MenuItem value="">Todos</MenuItem>
+            <MenuItem value="Cachorro">Cachorro</MenuItem>
+            <MenuItem value="Gato">Gato</MenuItem>
+            <MenuItem value="Outros">Outros</MenuItem>
+          </TextField>
         </div>
         <div className="container">
           <div className="table-container"></div>
@@ -105,32 +132,42 @@ export default function PetsPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pets.map((pet: Pets) => {
-                  return (
-                    <TableRow key={pet.id}>
-                      <TableCell>{pet.id}</TableCell>
-                      <TableCell>{pet.name}</TableCell>
-                      <TableCell>{pet.breed}</TableCell>
-                      <TableCell>{pet.type}</TableCell>
-                      <TableCell>
-                        <div className="crud-buttons">
-                          <PrimaryButton
-                            variantStyle="primary"
-                            onClick={() => handleOpenEditDialog(pet)}
-                          >
-                            <UserPen fontSize="medium" />
-                          </PrimaryButton>
-                          <PrimaryButton
-                            variantStyle="delete"
-                            onClick={() => handleOpenDeleteDialog(pet)}
-                          >
-                            <DeleteIcon fontSize="medium" />
-                          </PrimaryButton>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                {pets
+                  .filter((pet) => {
+                    const matchesSearch = pet.name
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase());
+                    const matchesType = typeFilter
+                      ? pet.type === typeFilter
+                      : true;
+                    return matchesSearch && matchesType;
+                  })
+                  .map((pet: Pets) => {
+                    return (
+                      <TableRow key={pet.id}>
+                        <TableCell>{pet.id}</TableCell>
+                        <TableCell>{pet.name}</TableCell>
+                        <TableCell>{pet.breed}</TableCell>
+                        <TableCell>{pet.type}</TableCell>
+                        <TableCell>
+                          <div className="crud-buttons">
+                            <PrimaryButton
+                              variantStyle="primary"
+                              onClick={() => handleOpenEditDialog(pet)}
+                            >
+                              <UserPen fontSize="medium" />
+                            </PrimaryButton>
+                            <PrimaryButton
+                              variantStyle="delete"
+                              onClick={() => handleOpenDeleteDialog(pet)}
+                            >
+                              <DeleteIcon fontSize="medium" />
+                            </PrimaryButton>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </div>
