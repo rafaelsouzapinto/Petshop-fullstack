@@ -4,13 +4,14 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/client-page.css";
 import { useState, useEffect } from "react";
 import Client from "../interfaces/Client";
-import { UserPen, UserRoundPlus } from "lucide-react";
+import { Search, UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import Header from "../components/Header";
 import DeleteClientDialog from "../components/DeleteClientDialog";
@@ -29,6 +30,8 @@ export default function ClientPage() {
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const handleOpenAddDialog = () => setOpenAddDialog(true);
   const handleCloseAddDialog = () => setOpenAddDialog(false);
+
+  const [searchName, setSearchName] = useState("");
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState<{
@@ -76,6 +79,19 @@ export default function ClientPage() {
         <PrimaryButton variantStyle="primary" onClick={handleOpenAddDialog}>
           <UserRoundPlus size={18} /> adicionar
         </PrimaryButton>
+
+        <div className="filter">
+          <div className="filter-item">
+            <Search size={"18px"} />
+            <TextField
+              label="Buscar por nome"
+              variant="outlined"
+              size="small"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
       <div className="container">
         <div className="table-container"></div>
@@ -83,38 +99,43 @@ export default function ClientPage() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
                 <TableCell>Nome</TableCell>
                 <TableCell>Cpf</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {clients.map((client) => {
-                return (
-                  <TableRow key={client.id}>
-                    <TableCell>{client.id}</TableCell>
-                    <TableCell>{client.name}</TableCell>
-                    <TableCell>{client.cpf}</TableCell>
-                    <TableCell>
-                      <div className="crud-buttons">
-                        <PrimaryButton
-                          variantStyle="primary"
-                          onClick={() => handleEditClick(client)}
-                        >
-                          <UserPen fontSize="medium" />
-                        </PrimaryButton>
-                        <PrimaryButton
-                          variantStyle="delete"
-                          onClick={() => handleDeleteClick(client)}
-                        >
-                          <DeleteIcon fontSize="medium" />
-                        </PrimaryButton>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {clients
+                .filter((client) => {
+                  const matchesName = client.name
+                    .toLowerCase()
+                    .includes(searchName.toLowerCase());
+                  return matchesName;
+                })
+                .map((client) => {
+                  return (
+                    <TableRow key={client.id}>
+                      <TableCell>{client.name}</TableCell>
+                      <TableCell>{client.cpf}</TableCell>
+                      <TableCell>
+                        <div className="crud-buttons">
+                          <PrimaryButton
+                            variantStyle="primary"
+                            onClick={() => handleEditClick(client)}
+                          >
+                            <UserPen fontSize="medium" />
+                          </PrimaryButton>
+                          <PrimaryButton
+                            variantStyle="delete"
+                            onClick={() => handleDeleteClick(client)}
+                          >
+                            <DeleteIcon fontSize="medium" />
+                          </PrimaryButton>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </div>

@@ -15,7 +15,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "../styles/client-page.css";
 import { useState, useEffect } from "react";
 import Pets from "../interfaces/Pets";
-import { UserPen, UserRoundPlus } from "lucide-react";
+import {
+  Search,
+  SlidersHorizontal,
+  UserPen,
+  UserRoundPlus,
+} from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import axios from "axios";
 import EditPetDialog from "../components/EditPetDialog";
@@ -95,28 +100,35 @@ export default function PetsPage() {
             <UserRoundPlus size={18} /> adicionar
           </PrimaryButton>
 
-          <TextField
-            label="Buscar por nome"
-            variant="outlined"
-            size="small"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
-          <TextField
-            select
-            label="Filtrar por espécie"
-            variant="outlined"
-            size="small"
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
-            style={{ minWidth: 150 }}
-          >
-            <MenuItem value="">Todos</MenuItem>
-            <MenuItem value="Cachorro">Cachorro</MenuItem>
-            <MenuItem value="Gato">Gato</MenuItem>
-            <MenuItem value="Outros">Outros</MenuItem>
-          </TextField>
+          <div className="filter">
+            <div className="filter-item">
+              <Search size={"18px"} />
+              <TextField
+                label="Buscar por nome"
+                variant="outlined"
+                size="small"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="filter-item">
+              <SlidersHorizontal size={"18px"} />
+              <TextField
+                select
+                label="Filtrar por espécie"
+                variant="outlined"
+                size="small"
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                style={{ minWidth: 150 }}
+              >
+                <MenuItem value="">Todos</MenuItem>
+                <MenuItem value="Cachorro">Cachorro</MenuItem>
+                <MenuItem value="Gato">Gato</MenuItem>
+                <MenuItem value="Outros">Outros</MenuItem>
+              </TextField>
+            </div>
+          </div>
         </div>
         <div className="container">
           <div className="table-container"></div>
@@ -124,7 +136,6 @@ export default function PetsPage() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Id</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Raça</TableCell>
                   <TableCell>Espécie</TableCell>
@@ -145,7 +156,6 @@ export default function PetsPage() {
                   .map((pet: Pets) => {
                     return (
                       <TableRow key={pet.id}>
-                        <TableCell>{pet.id}</TableCell>
                         <TableCell>{pet.name}</TableCell>
                         <TableCell>{pet.breed}</TableCell>
                         <TableCell>{pet.type}</TableCell>
