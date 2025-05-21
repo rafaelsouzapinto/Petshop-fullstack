@@ -95,12 +95,12 @@ export default function PetsPage() {
     <div>
       <>
         <Header />
-        <div className="filter-container">
+        <div className="pet-filter-container">
           <PrimaryButton variantStyle="primary" onClick={handleOpenAddDialog}>
             <UserRoundPlus size={18} /> adicionar
           </PrimaryButton>
 
-          <div className="filter">
+          <div className="pet-filter">
             <div className="filter-item">
               <Search size={"18px"} />
               <TextField
@@ -120,7 +120,7 @@ export default function PetsPage() {
                 size="small"
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                style={{ minWidth: 150 }}
+                style={{ minWidth: 203 }}
               >
                 <MenuItem value="">Todos</MenuItem>
                 <MenuItem value="Cachorro">Cachorro</MenuItem>

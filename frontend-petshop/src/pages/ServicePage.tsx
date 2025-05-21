@@ -12,10 +12,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { MenuItem, TextField } from "@mui/material";
+import { Search, SlidersHorizontal } from "lucide-react";
 
 export default function ServicePage() {
   const [registrations, setRegistration] = useState<Registration[]>([]);
   const [services, setServices] = useState<Service[]>([]);
+
+  const [searchPetName, setSearchPetName] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
+  const [filteredRegistrations, setFilteredRegistrations] =
+    useState(registrations);
+
+  useEffect(() => {
+    if (!registrations) return;
+
+    const filtered = registrations.filter((registration) => {
+      const matchesName = registration.pet.name
+        .toLowerCase()
+        .includes(searchPetName.toLowerCase());
+
+      const matchesStatus =
+        !filterStatus || registration.serviceStatus === filterStatus;
+
+      return matchesName && matchesStatus;
+    });
+
+    setFilteredRegistrations(filtered);
+  }, [searchPetName, filterStatus, registrations]);
 
   useEffect(() => {
     axios
@@ -63,13 +87,46 @@ export default function ServicePage() {
         </div>
       </div>
 
-      <div>
-        <h1>Serviços em andamento</h1>
-        <div>
-          <h2>filtros: </h2>
+      <div className="registration-container">
+        <div className="registration-details">
+          <h1>Serviços em andamento</h1>
+          <div className="registration-filter">
+            <div className="registration-filter-item">
+              <Search size={"18px"} />
+              <TextField
+                id="search-pet"
+                label="Nome do pet"
+                variant="outlined"
+                size="small"
+                value={searchPetName}
+                onChange={(e) => setSearchPetName(e.target.value)}
+              />
+            </div>
+
+            <div className="registration-filter-item">
+              <SlidersHorizontal size={"18px"} />
+              <TextField
+                id="filter-status"
+                select
+                label="Filtrar por status"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                size="small"
+                sx={{
+                  width: "200px",
+                }}
+              >
+                <MenuItem value="">Todos</MenuItem>
+                <MenuItem value="PENDING">Pendente</MenuItem>
+                <MenuItem value="IN_PROGRESS">Em andamento</MenuItem>
+                <MenuItem value="COMPLETED">Concluído</MenuItem>
+                <MenuItem value="CANCELLED">Cancelado</MenuItem>
+              </TextField>
+            </div>
+          </div>
         </div>
-        <div className="registrations-container">
-          {registrations.map((registration) => (
+        <div className="registration-items">
+          {filteredRegistrations.map((registration) => (
             <OngoingServiceCard
               key={registration.id}
               finalPrice={registration.finalPrice}

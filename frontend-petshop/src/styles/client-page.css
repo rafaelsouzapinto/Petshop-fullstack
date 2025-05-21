@@ -11,7 +11,7 @@ body {
 }
 
 .filter-container {
-  height: 120px;
+  height: 100px;
   gap: 1rem;
   display: grid;
 }
@@ -53,8 +53,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    height: 150px;
+    height: 100px;
     margin: auto;
     max-width: 1100px;
     padding: 10px 30px;
