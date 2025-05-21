@@ -18,11 +18,14 @@ import PrimaryButton from "../components/PrimaryButton";
 import axios from "axios";
 import EditPetDialog from "../components/EditPetDialog";
 import DeletePetDialog from "../components/DeletePetDialog";
+import Client from "../interfaces/Client";
+import AddPetDialog from "../components/AddPetDialog";
 
 const url = "http://localhost:8080/pets";
 
 export default function PetsPage() {
   const [pets, setPets] = useState<Pets[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const [selectedPet, setSelectedPet] = useState<Pets | null>(null);
@@ -30,26 +33,30 @@ export default function PetsPage() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [petToDelete, setPetToDelete] = useState<Pets | null>(null);
 
+  const [openAddDialog, setOpenAddDialog] = useState(false);
+
   const handleOpenEditDialog = (pet: Pets) => {
     setSelectedPet(pet);
     setEditDialogOpen(true);
   };
 
   const handlePetUpdated = async () => {
-    await fetchData();
+    await fetchPetsData();
   };
 
   const handleOpenDeleteDialog = (pet: Pets) => {
     setPetToDelete(pet);
     setOpenDeleteDialog(true);
   };
-
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
     setPetToDelete(null);
   };
 
-  const fetchData = async () => {
+  const handleOpenAddDialog = () => setOpenAddDialog(true);
+  const handleCloseAddDialog = () => setOpenAddDialog(false);
+
+  const fetchPetsData = async () => {
     try {
       const response = await axios.get<Pets[]>(url);
       setPets(response.data);
@@ -58,8 +65,20 @@ export default function PetsPage() {
     }
   };
 
+  const fetchClientsData = async () => {
+    try {
+      const response = await axios.get<Client[]>(
+        "http://localhost:8080/clients"
+      );
+      setClients(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar os clientes:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchPetsData();
+    fetchClientsData();
   }, []);
 
   return (
@@ -68,7 +87,7 @@ export default function PetsPage() {
         <Header />
         <div className="filter-container">
           {/* Botão para adicionar pet */}
-          <PrimaryButton variantStyle="primary">
+          <PrimaryButton variantStyle="primary" onClick={handleOpenAddDialog}>
             <UserRoundPlus size={18} /> adicionar
           </PrimaryButton>
         </div>
@@ -127,8 +146,15 @@ export default function PetsPage() {
           open={openDeleteDialog}
           onClose={handleCloseDeleteDialog}
           pet={petToDelete}
-          onPetDeleted={fetchData}
+          onPetDeleted={fetchPetsData}
           deleteUrl={url}
+        />
+        <AddPetDialog
+          open={openAddDialog}
+          onClose={handleCloseAddDialog}
+          onPetAdded={fetchPetsData}
+          availableClients={clients}
+          postUrl={url}
         />
       </>
     </div>
