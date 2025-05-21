@@ -4,9 +4,9 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Button,
 } from "@mui/material";
 import { useState } from "react";
+import PrimaryButton from "./PrimaryButton";
 
 interface AddClientDialogProps {
   open: boolean;
@@ -66,10 +66,17 @@ export default function AddClientDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleAddClient} variant="contained" color="primary">
+        <PrimaryButton onClick={onClose} variantStyle="delete">
+          Cancelar
+        </PrimaryButton>
+        <PrimaryButton
+          onClick={handleAddClient}
+          variant="contained"
+          color="primary"
+          variantStyle="primary"
+        >
           Adicionar
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

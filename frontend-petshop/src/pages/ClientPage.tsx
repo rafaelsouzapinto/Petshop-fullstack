@@ -16,6 +16,7 @@ import Header from "../components/Header";
 import DeleteClientDialog from "../components/DeleteClientDialog";
 import axios from "axios";
 import AddClientDialog from "../components/AddClientDialog";
+import EditClientDialog from "../components/EditClientDialog";
 
 const url = "http://localhost:8080/clients";
 
@@ -29,13 +30,29 @@ export default function ClientPage() {
   const handleOpenAddDialog = () => setOpenAddDialog(true);
   const handleCloseAddDialog = () => setOpenAddDialog(false);
 
-  const handleClientAdded = () => {
-    fetchData();
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<{
+    id: number;
+    name: string;
+    cpf: string;
+  } | null>(null);
+
+  const handleEditClick = (client: {
+    id: number;
+    name: string;
+    cpf: string;
+  }) => {
+    setSelectedClient(client);
+    setEditDialogOpen(true);
   };
 
   const handleDeleteClick = (client: Client) => {
     setClientToDelete(client);
     setDeleteDialogOpen(true);
+  };
+
+  const handleClientAdded = async () => {
+    await fetchData();
   };
 
   const fetchData = async () => {
@@ -81,7 +98,10 @@ export default function ClientPage() {
                     <TableCell>{client.cpf}</TableCell>
                     <TableCell>
                       <div className="crud-buttons">
-                        <PrimaryButton variantStyle="primary">
+                        <PrimaryButton
+                          variantStyle="primary"
+                          onClick={() => handleEditClick(client)}
+                        >
                           <UserPen fontSize="medium" />
                         </PrimaryButton>
                         <PrimaryButton
@@ -99,6 +119,14 @@ export default function ClientPage() {
           </Table>
         </div>
       </div>
+      <EditClientDialog
+        open={editDialogOpen}
+        onClose={() => setEditDialogOpen(false)}
+        client={selectedClient}
+        onClientUpdated={handleClientAdded}
+        putUrl={url}
+      />
+
       <DeleteClientDialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
@@ -111,7 +139,7 @@ export default function ClientPage() {
         open={openAddDialog}
         onClose={handleCloseAddDialog}
         onClientAdded={handleClientAdded}
-        postUrl="http://localhost:8080/clients"
+        postUrl={url}
       />
     </>
   );
