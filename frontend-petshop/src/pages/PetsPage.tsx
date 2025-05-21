@@ -16,13 +16,40 @@ import Pets from "../interfaces/Pets";
 import { UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import axios from "axios";
+import EditPetDialog from "../components/EditPetDialog";
+import DeletePetDialog from "../components/DeletePetDialog";
 
 const url = "http://localhost:8080/pets";
 
 export default function PetsPage() {
   const [pets, setPets] = useState<Pets[]>([]);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
-  const ClientFetchData = async () => {
+  const [selectedPet, setSelectedPet] = useState<Pets | null>(null);
+
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [petToDelete, setPetToDelete] = useState<Pets | null>(null);
+
+  const handleOpenEditDialog = (pet: Pets) => {
+    setSelectedPet(pet);
+    setEditDialogOpen(true);
+  };
+
+  const handlePetUpdated = async () => {
+    await fetchData();
+  };
+
+  const handleOpenDeleteDialog = (pet: Pets) => {
+    setPetToDelete(pet);
+    setOpenDeleteDialog(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+    setPetToDelete(null);
+  };
+
+  const fetchData = async () => {
     try {
       const response = await axios.get<Pets[]>(url);
       setPets(response.data);
@@ -32,7 +59,7 @@ export default function PetsPage() {
   };
 
   useEffect(() => {
-    ClientFetchData();
+    fetchData();
   }, []);
 
   return (
@@ -40,7 +67,7 @@ export default function PetsPage() {
       <>
         <Header />
         <div className="filter-container">
-          {/* Botão para adicionar usuário */}
+          {/* Botão para adicionar pet */}
           <PrimaryButton variantStyle="primary">
             <UserRoundPlus size={18} /> adicionar
           </PrimaryButton>
@@ -59,19 +86,25 @@ export default function PetsPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pets.map((pets) => {
+                {pets.map((pet: Pets) => {
                   return (
-                    <TableRow key={pets.id}>
-                      <TableCell>{pets.id}</TableCell>
-                      <TableCell>{pets.name}</TableCell>
-                      <TableCell>{pets.breed}</TableCell>
-                      <TableCell>{pets.type}</TableCell>
+                    <TableRow key={pet.id}>
+                      <TableCell>{pet.id}</TableCell>
+                      <TableCell>{pet.name}</TableCell>
+                      <TableCell>{pet.breed}</TableCell>
+                      <TableCell>{pet.type}</TableCell>
                       <TableCell>
                         <div className="crud-buttons">
-                          <PrimaryButton variantStyle="primary">
+                          <PrimaryButton
+                            variantStyle="primary"
+                            onClick={() => handleOpenEditDialog(pet)}
+                          >
                             <UserPen fontSize="medium" />
                           </PrimaryButton>
-                          <PrimaryButton variantStyle="delete">
+                          <PrimaryButton
+                            variantStyle="delete"
+                            onClick={() => handleOpenDeleteDialog(pet)}
+                          >
                             <DeleteIcon fontSize="medium" />
                           </PrimaryButton>
                         </div>
@@ -83,6 +116,20 @@ export default function PetsPage() {
             </Table>
           </div>
         </div>
+        <EditPetDialog
+          open={editDialogOpen}
+          onClose={() => setEditDialogOpen(false)}
+          pet={selectedPet}
+          onPetUpdated={handlePetUpdated}
+          putUrl={url}
+        />
+        <DeletePetDialog
+          open={openDeleteDialog}
+          onClose={handleCloseDeleteDialog}
+          pet={petToDelete}
+          onPetDeleted={fetchData}
+          deleteUrl={url}
+        />
       </>
     </div>
   );
