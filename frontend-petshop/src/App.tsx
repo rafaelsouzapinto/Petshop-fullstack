@@ -6,7 +6,6 @@ function App() {
   return (
     <>
       <Header />
-      <h1>Exibição de cards de consultas</h1>
       <ServicePage />
     </>
   );
