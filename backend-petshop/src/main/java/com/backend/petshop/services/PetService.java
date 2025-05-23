@@ -37,6 +37,8 @@ public class PetService {
 			obj.setName(pet.getName());
 			obj.setBreed(pet.getBreed());
 			obj.setMonths(pet.getMonths());
+			obj.setType(pet.getType());
+			obj.setWeight(pet.getWeight());
 			obj.setClient(pet.getClient());
 			return repository.save(obj);
 			
