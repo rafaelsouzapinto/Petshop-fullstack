@@ -27,6 +27,7 @@ public class Registration {
 	private Instant moment;
     @Enumerated(EnumType.STRING)
     private ServiceStatus serviceStatus;
+    private String description;
 	
     @ManyToOne
     @JoinColumn(name = "pet_id")
@@ -38,16 +39,17 @@ public class Registration {
     
 	public Registration() {}
 	
-	public Registration(Long id, Double finalPrice, Instant moment, ServiceStatus serviceStatus, Pet pet,
-			AvailableService service) {
+	public Registration(Long id, Double finalPrice, Instant moment, ServiceStatus serviceStatus, String description,
+			Pet pet, AvailableService service) {
 		this.id = id;
 		this.finalPrice = finalPrice;
 		this.moment = moment;
 		this.serviceStatus = serviceStatus;
+		this.description = description;
 		this.pet = pet;
 		this.service = service;
 	}
-	
+
 	@PrePersist
     public void prePersist() {
         this.moment = Instant.now();
@@ -89,7 +91,13 @@ public class Registration {
 	public void setService(AvailableService service) {
 		this.service = service;
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
