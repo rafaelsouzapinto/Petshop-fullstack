@@ -39,6 +39,7 @@ public class AvailableServiceService {
 			obj.setCategory(availableService.getCategory());
 			obj.setIsAvailable(availableService.getIsAvailable());
 			obj.setBasePrice(availableService.getBasePrice());
+			obj.setServiceImage(availableService.getServiceImage());
 			
 			return repository.save(obj);
 			

@@ -21,19 +21,22 @@ public class AvailableService {
 	private String category;
 	private Boolean isAvailable;
 	private Double basePrice;
+	private String serviceImage;
 	
 	@OneToMany(mappedBy = "service")
 	private List<Registration> registrations = new ArrayList<>();
 	
 	public AvailableService() {
 	}
-	public AvailableService(Long id, String category, Boolean isAvailable, Double basePrice) {
+	public AvailableService(Long id, String category, Boolean isAvailable, Double basePrice, String serviceImage) {
 		this.id = id;
 		this.category = category;
 		this.isAvailable = isAvailable;
 		this.basePrice = basePrice;
+		this.serviceImage = serviceImage;
 	}
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -58,7 +61,12 @@ public class AvailableService {
 	public void setBasePrice(Double basePrice) {
 		this.basePrice = basePrice;
 	}
-	
+	public String getServiceImage() {
+		return serviceImage;
+	}
+	public void setServiceImage(String serviceImage) {
+		this.serviceImage = serviceImage;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
