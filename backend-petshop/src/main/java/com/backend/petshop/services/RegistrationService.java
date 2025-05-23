@@ -38,6 +38,7 @@ public class RegistrationService {
 			obj.setServiceStatus(registration.getServiceStatus());
 			obj.setPet(registration.getPet());
 			obj.setService(registration.getService());
+			obj.setDescription(registration.getDescription());
 			
 			return repository.save(obj);
 		} catch (ResourceNotFoundException e) {
