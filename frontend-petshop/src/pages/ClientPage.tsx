@@ -16,7 +16,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import Header from "../components/Header";
 import DeleteClientDialog from "../components/DeleteClientDialog";
 import axios from "axios";
-import AddClientDialog from "../components/AddClientDialog";
+import AddClientDialog from "../components/addClientDialog";
 import EditClientDialog from "../components/EditClientDialog";
 
 const url = "http://localhost:8080/clients";

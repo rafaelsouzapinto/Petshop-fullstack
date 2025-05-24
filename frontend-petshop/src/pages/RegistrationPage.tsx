@@ -155,7 +155,13 @@ export default function RegistrationPage() {
           />
 
           <div className="form-title">
-            <Typography variant="h5" component="h2" color="textSecondary">
+            <Typography
+              variant="h2"
+              component="h2"
+              sx={{
+                fontSize: "2.5em",
+              }}
+            >
               Cadastro de consultas
             </Typography>
           </div>

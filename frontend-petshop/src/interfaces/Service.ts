@@ -3,4 +3,5 @@ export default interface Service {
   category: string;
   isAvailable: boolean;
   basePrice: number;
+  serviceImage: string;
 }

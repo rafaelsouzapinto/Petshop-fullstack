@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { MenuItem, TextField } from "@mui/material";
+import { MenuItem, TextField, Typography } from "@mui/material";
 import { Search, SlidersHorizontal } from "lucide-react";
 
 export default function ServicePage() {
@@ -66,12 +66,29 @@ export default function ServicePage() {
   return (
     <div className="service-page-container">
       <div className="services-container">
-        <div className="services-initial">
-          <h1>Bem vindo de volta!</h1>
-          <p>Pronto para cuidar de alguns bichinhos?</p>
+        <img src="../osso-pet.png" className="osso-pet" alt="osso-pet" />
+        <div className="services-title">
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontSize: "3em",
+            }}
+          >
+            Bem vindo de volta!
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="h2"
+            sx={{
+              fontSize: "1.1em",
+            }}
+          >
+            Pronto para cuidar de alguns bichinhos?
+          </Typography>
         </div>
         <div className="caroussel-container">
-          <Swiper>
+          <Swiper slidesPerView={1} navigation autoplay>
             {services.map((service) => (
               <SwiperSlide>
                 <div key={service.id}>
@@ -79,6 +96,7 @@ export default function ServicePage() {
                     category={service.category}
                     isAvailable={service.isAvailable}
                     basePrice={service.basePrice}
+                    serviceImage={service.serviceImage}
                   />
                 </div>
               </SwiperSlide>
@@ -89,7 +107,15 @@ export default function ServicePage() {
 
       <div className="registration-container">
         <div className="registration-details">
-          <h1>Serviços em andamento</h1>
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontSize: "3em",
+            }}
+          >
+            Serviços em andamento
+          </Typography>
           <div className="registration-filter">
             <div className="registration-filter-item">
               <Search size={"18px"} />
@@ -134,7 +160,7 @@ export default function ServicePage() {
               pet={{ name: registration.pet.name }}
               service={{
                 category: registration.service.category,
-                // imageUrl: getImageUrl(service.service.category)
+                serviceImage: registration.service.serviceImage,
               }}
             />
           ))}

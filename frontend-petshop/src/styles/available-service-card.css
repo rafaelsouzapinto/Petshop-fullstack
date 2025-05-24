@@ -9,12 +9,15 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .available-service-image {
   width: 250px;
   height: 250px;
-  background-color: aliceblue;
+}
+.available-service-image-item {
+  border-radius: 5px;
 }
 
 @media (min-width: 768px) {

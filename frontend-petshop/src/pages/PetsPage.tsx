@@ -104,6 +104,7 @@ export default function PetsPage() {
             <div className="filter-item">
               <Search size={"18px"} />
               <TextField
+                id="search-name"
                 label="Buscar por nome"
                 variant="outlined"
                 size="small"
@@ -114,6 +115,7 @@ export default function PetsPage() {
             <div className="filter-item">
               <SlidersHorizontal size={"18px"} />
               <TextField
+                id="filter-species"
                 select
                 label="Filtrar por espécie"
                 variant="outlined"
