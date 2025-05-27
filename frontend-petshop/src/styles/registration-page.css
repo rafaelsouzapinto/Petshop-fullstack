@@ -48,7 +48,7 @@
 
   .form-container {
     width: 900px;
-    height: 500px;
+    height: 650px;
     padding: 30px;
     border-radius: 5px;
 
@@ -73,7 +73,7 @@
   }
 
   .form {
-    width: 400px;
+    width: 430px;
     background-color: #779bd042;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -84,6 +84,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 370px;
+    width: 400px;
   }
 }

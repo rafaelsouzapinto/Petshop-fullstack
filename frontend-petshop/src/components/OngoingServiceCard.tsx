@@ -11,6 +11,7 @@ interface OngoingServiceProps {
     category: string;
     serviceImage: string;
   };
+  onClick?: () => void;
 }
 
 export default function OngoingServiceCard({
@@ -18,9 +19,21 @@ export default function OngoingServiceCard({
   serviceStatus,
   pet,
   service,
+  onClick,
 }: OngoingServiceProps) {
   return (
-    <div className="ongoing-service">
+    <div
+      className="ongoing-service"
+      onClick={onClick}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "scale(1.03)";
+        e.currentTarget.style.boxShadow = "0px 4px 12px rgba(0,0,0,0.3)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
+      }}
+    >
       <div className="ongoing-service-image">
         {
           <img

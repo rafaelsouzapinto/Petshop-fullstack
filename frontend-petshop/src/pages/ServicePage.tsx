@@ -14,6 +14,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { MenuItem, TextField, Typography } from "@mui/material";
 import { Search, SlidersHorizontal } from "lucide-react";
+import { ServiceDialog } from "../components/ServiceDialog";
+import { AvailableServiceDialog } from "../components/AvailableServiceDialog";
+
+export type ServiceStatus =
+  | "PENDING"
+  | "IN_PROGRESS"
+  | "COMPLETED"
+  | "CANCELLED";
 
 export default function ServicePage() {
   const [registrations, setRegistration] = useState<Registration[]>([]);
@@ -23,6 +31,77 @@ export default function ServicePage() {
   const [filterStatus, setFilterStatus] = useState("");
   const [filteredRegistrations, setFilteredRegistrations] =
     useState(registrations);
+
+  const [selectedRegistration, setSelectedRegistration] =
+    useState<Registration | null>(null);
+  const [openRegistrationDialog, setOpenRegistrationDialog] = useState(false);
+
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
+
+  const handleOpenDialog = (registration: Registration) => {
+    setSelectedRegistration(registration);
+    setOpenRegistrationDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenRegistrationDialog(false);
+    setSelectedRegistration(null);
+  };
+
+  const handleOpenServiceDialog = (service: Service) => {
+    setSelectedService(service);
+    setServiceDialogOpen(true);
+  };
+
+  const handleCloseServiceDialog = () => {
+    setServiceDialogOpen(false);
+    setSelectedService(null);
+  };
+
+  const handleUpdateStatus = (newStatus: ServiceStatus) => {
+    if (!selectedRegistration) return;
+
+    const updatedRegistration = {
+      ...selectedRegistration,
+      serviceStatus: newStatus,
+    };
+    axios
+      .put(
+        `http://localhost:8080/registration/${selectedRegistration.id}`,
+        updatedRegistration
+      )
+      .then(() => {
+        setRegistration((prev) =>
+          prev.map((item) =>
+            item.id === selectedRegistration.id ? updatedRegistration : item
+          )
+        );
+        handleCloseDialog();
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar status:", error);
+      });
+  };
+
+  const handleSaveService = (updatedService: Service) => {
+    const updatedServices = services.map((s) =>
+      s.id === updatedService.id ? updatedService : s
+    );
+    setServices(updatedServices);
+
+    axios
+      .put(
+        `http://localhost:8080/available-service/${updatedService.id}`,
+        updatedService
+      )
+      .then(() => {
+        console.log("Serviço atualizado com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar serviço:", error);
+      });
+  };
 
   useEffect(() => {
     if (!registrations) return;
@@ -45,7 +124,11 @@ export default function ServicePage() {
     axios
       .get("http://localhost:8080/registration")
       .then((response) => {
-        setRegistration(response.data);
+        const activeRegistrations = response.data.filter(
+          (r: Registration) =>
+            r.serviceStatus === "PENDING" || r.serviceStatus === "IN_PROGRESS"
+        );
+        setRegistration(activeRegistrations);
       })
       .catch((error) => {
         console.error("Erro ao buscar serviços em andamento:", error);
@@ -91,7 +174,10 @@ export default function ServicePage() {
           <Swiper slidesPerView={1} navigation autoplay>
             {services.map((service) => (
               <SwiperSlide>
-                <div key={service.id}>
+                <div
+                  key={service.id}
+                  onClick={() => handleOpenServiceDialog(service)}
+                >
                   <AvailableServiceCard
                     category={service.category}
                     isAvailable={service.isAvailable}
@@ -162,22 +248,23 @@ export default function ServicePage() {
                 category: registration.service.category,
                 serviceImage: registration.service.serviceImage,
               }}
+              onClick={() => handleOpenDialog(registration)}
             />
           ))}
         </div>
       </div>
+      <ServiceDialog
+        open={openRegistrationDialog}
+        onClose={handleCloseDialog}
+        registration={selectedRegistration}
+        onUpdateStatus={handleUpdateStatus}
+      />
+      <AvailableServiceDialog
+        open={serviceDialogOpen}
+        onClose={handleCloseServiceDialog}
+        service={selectedService}
+        onSave={handleSaveService}
+      />
     </div>
   );
 }
-
-// Função auxiliar para simular retorno de imagem baseado na categoria
-/*
-  function getImageUrl(category: string): string {
-    const categoryMap: { [key: string]: string } = {
-      "Banho e Tosa Médio Porte": "/images/banho_tosa_medio.jpg",
-      "Vacinação": "/images/vacinacao.jpg",
-      // etc.
-    };
-  return categoryMap[category] || "/images/servico_padrao.jpg";
-  }
-*/

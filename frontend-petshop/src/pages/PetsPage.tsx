@@ -10,7 +10,6 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/client-page.css";
 import { useState, useEffect } from "react";
@@ -18,6 +17,7 @@ import Pets from "../interfaces/Pets";
 import {
   Search,
   SlidersHorizontal,
+  Trash2,
   UserPen,
   UserRoundPlus,
 } from "lucide-react";
@@ -127,7 +127,7 @@ export default function PetsPage() {
                 <MenuItem value="">Todos</MenuItem>
                 <MenuItem value="Cachorro">Cachorro</MenuItem>
                 <MenuItem value="Gato">Gato</MenuItem>
-                <MenuItem value="Outros">Outros</MenuItem>
+                <MenuItem value="Outro">Outros</MenuItem>
               </TextField>
             </div>
           </div>
@@ -173,7 +173,7 @@ export default function PetsPage() {
                               variantStyle="delete"
                               onClick={() => handleOpenDeleteDialog(pet)}
                             >
-                              <DeleteIcon fontSize="medium" />
+                              <Trash2 fontSize="medium" />
                             </PrimaryButton>
                           </div>
                         </TableCell>

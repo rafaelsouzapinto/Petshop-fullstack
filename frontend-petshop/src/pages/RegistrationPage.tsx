@@ -6,6 +6,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  TextField,
   Typography,
 } from "@mui/material";
 import "../styles/registration-page.css";
@@ -25,6 +26,7 @@ export default function RegistrationPage() {
   const [formData, setFormData] = useState({
     amount: "",
     status: "",
+    description: "",
     petId: "",
     serviceId: "",
   });
@@ -44,6 +46,7 @@ export default function RegistrationPage() {
       const dataToSend = {
         finalPrice: parseFloat(formData.amount),
         serviceStatus: formData.status,
+        description: formData.description,
         pet: {
           id: parseInt(formData.petId),
         },
@@ -59,6 +62,7 @@ export default function RegistrationPage() {
       setFormData({
         amount: "",
         status: "",
+        description: "",
         petId: "",
         serviceId: "",
       });
@@ -263,7 +267,6 @@ export default function RegistrationPage() {
               <Typography variant="h6" component="h2" color="textSecondary">
                 Serviço:
               </Typography>
-
               <FormControl required sx={{ m: 1, minWidth: 280 }}>
                 <InputLabel id="demo-simple-select-required-label">
                   Serviços
@@ -286,6 +289,25 @@ export default function RegistrationPage() {
                   ))}
                 </Select>
               </FormControl>
+            </div>
+            <div className="form-item">
+              <Typography variant="h6" component="h2" color="textSecondary">
+                Descrição:
+              </Typography>
+              <TextField
+                id="outlined-multiline-static"
+                name="description"
+                label="Descrição"
+                value={formData.description}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                defaultValue=""
+                sx={{
+                  m: 1,
+                  width: "280px",
+                }}
+              />
             </div>
             <PrimaryButton
               variant="contained"
