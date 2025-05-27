@@ -3,18 +3,23 @@
   height: 400px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #779bd0;
+  background-color: #779bd0bd;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
   margin: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
 }
 
 .available-service-image {
   width: 250px;
   height: 250px;
-  background-color: aliceblue;
+}
+.available-service-image-item {
+  border-radius: 5px;
 }
 
 @media (min-width: 768px) {

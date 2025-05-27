@@ -1,21 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .caroussel-container {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 20px;
 }
-
-.services-initial {
+.services-title {
   margin: 10px;
 }
 .services-container {
-  background-color: #e8f1f2;
+  background-color: #dce6f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  margin: 24px auto;
+  margin: auto;
+  margin-bottom: 24px;
   row-gap: 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
+
+  position: relative;
+  z-index: 1;
+}
+
+.osso-pet {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 10px;
+  z-index: 0;
+}
+
+.register-container {
+  background-color: #dce6f156;
+  width: 100%;
+  margin-bottom: 24px;
 }
 
 .registration-items {
@@ -28,7 +52,6 @@
   flex-wrap: wrap;
   margin: auto;
 }
-
 .registration-details {
   max-width: 1200px;
   padding: 20px 40px;
@@ -52,7 +75,8 @@
   padding: 10px;
   border-radius: 10px;
   display: grid;
-  background-color: #e8f1f2;
+  background-color: #dce6f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -64,11 +88,19 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: #e8f1f2;
     border-radius: 5px;
     margin: 24px auto;
     max-width: 1200px;
     flex-direction: row;
+  }
+  .osso-pet {
+    position: absolute;
+    top: 17%;
+    right: 51%;
+    width: 550px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .registration-items {
@@ -97,6 +129,5 @@
     padding: 10px;
     border-radius: 10px;
     display: grid;
-    background-color: #e8f1f2;
   }
 }

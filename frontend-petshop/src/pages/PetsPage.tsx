@@ -10,7 +10,6 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/client-page.css";
 import { useState, useEffect } from "react";
@@ -18,6 +17,7 @@ import Pets from "../interfaces/Pets";
 import {
   Search,
   SlidersHorizontal,
+  Trash2,
   UserPen,
   UserRoundPlus,
 } from "lucide-react";
@@ -104,6 +104,7 @@ export default function PetsPage() {
             <div className="filter-item">
               <Search size={"18px"} />
               <TextField
+                id="search-name"
                 label="Buscar por nome"
                 variant="outlined"
                 size="small"
@@ -114,6 +115,7 @@ export default function PetsPage() {
             <div className="filter-item">
               <SlidersHorizontal size={"18px"} />
               <TextField
+                id="filter-species"
                 select
                 label="Filtrar por espécie"
                 variant="outlined"
@@ -125,7 +127,7 @@ export default function PetsPage() {
                 <MenuItem value="">Todos</MenuItem>
                 <MenuItem value="Cachorro">Cachorro</MenuItem>
                 <MenuItem value="Gato">Gato</MenuItem>
-                <MenuItem value="Outros">Outros</MenuItem>
+                <MenuItem value="Outro">Outros</MenuItem>
               </TextField>
             </div>
           </div>
@@ -138,7 +140,6 @@ export default function PetsPage() {
                 <TableRow>
                   <TableCell>Nome</TableCell>
                   <TableCell>Raça</TableCell>
-                  <TableCell>Espécie</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -158,7 +159,6 @@ export default function PetsPage() {
                       <TableRow key={pet.id}>
                         <TableCell>{pet.name}</TableCell>
                         <TableCell>{pet.breed}</TableCell>
-                        <TableCell>{pet.type}</TableCell>
                         <TableCell>
                           <div className="crud-buttons">
                             <PrimaryButton
@@ -171,7 +171,7 @@ export default function PetsPage() {
                               variantStyle="delete"
                               onClick={() => handleOpenDeleteDialog(pet)}
                             >
-                              <DeleteIcon fontSize="medium" />
+                              <Trash2 fontSize="medium" />
                             </PrimaryButton>
                           </div>
                         </TableCell>

@@ -4,12 +4,12 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Button,
   MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Pets from "../interfaces/Pets";
+import PrimaryButton from "./PrimaryButton";
 
 interface EditPetDialogProps {
   open: boolean;
@@ -73,6 +73,7 @@ export default function EditPetDialog({
       <DialogTitle>Editar Pet</DialogTitle>
       <DialogContent>
         <TextField
+          id="edit-pet-name"
           margin="dense"
           label="Nome"
           fullWidth
@@ -80,6 +81,7 @@ export default function EditPetDialog({
           onChange={(e) => setName(e.target.value)}
         />
         <TextField
+          id="edit-pet-type"
           margin="dense"
           label="Tipo"
           fullWidth
@@ -92,6 +94,7 @@ export default function EditPetDialog({
           <MenuItem value="Outro">Outro</MenuItem>
         </TextField>
         <TextField
+          id="edit-pet-breed"
           margin="dense"
           label="Raça"
           fullWidth
@@ -99,6 +102,7 @@ export default function EditPetDialog({
           onChange={(e) => setBreed(e.target.value)}
         />
         <TextField
+          id="edit-pet-months"
           margin="dense"
           label="Idade (meses)"
           fullWidth
@@ -107,6 +111,7 @@ export default function EditPetDialog({
           onChange={(e) => setMonths(parseInt(e.target.value))}
         />
         <TextField
+          id="edit-pet-sex"
           margin="dense"
           label="Sexo"
           fullWidth
@@ -118,6 +123,7 @@ export default function EditPetDialog({
           <MenuItem value="MALE">Macho</MenuItem>
         </TextField>
         <TextField
+          id="edit-pet-weight"
           margin="dense"
           label="Peso (kg)"
           fullWidth
@@ -126,6 +132,7 @@ export default function EditPetDialog({
           onChange={(e) => setWeight(parseFloat(e.target.value))}
         />
         <TextField
+          id="edit-pet-client"
           margin="dense"
           label="Cliente"
           fullWidth
@@ -134,10 +141,17 @@ export default function EditPetDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleUpdatePet} variant="contained" color="primary">
+        <PrimaryButton onClick={onClose} variantStyle="delete">
+          Cancelar
+        </PrimaryButton>
+        <PrimaryButton
+          onClick={handleUpdatePet}
+          variant="contained"
+          color="primary"
+          variantStyle="primary"
+        >
           Salvar
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

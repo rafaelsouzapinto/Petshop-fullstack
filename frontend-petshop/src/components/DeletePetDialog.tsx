@@ -6,6 +6,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import PrimaryButton from "./PrimaryButton";
 
 interface DeletePetDialogProps {
   open: boolean;
@@ -45,9 +46,14 @@ export default function DeletePetDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleDelete} color="error" variant="contained">
+        <PrimaryButton
+          onClick={handleDelete}
+          color="error"
+          variant="contained"
+          variantStyle="delete"
+        >
           Excluir
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

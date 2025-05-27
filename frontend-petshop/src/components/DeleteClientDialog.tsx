@@ -6,6 +6,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import PrimaryButton from "./PrimaryButton";
 
 interface DeleteClientDialogProps {
   open: boolean;
@@ -40,15 +41,20 @@ export default function DeleteClientDialog({
       <DialogTitle>Confirmar Exclusão</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Tem certeza de que deseja excluir o cliente{" "}
+          Tem certeza de que deseja excluir o cliente
           <strong>{client?.name}</strong>?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleDelete} color="error" variant="contained">
+        <PrimaryButton
+          onClick={handleDelete}
+          color="error"
+          variant="contained"
+          variantStyle="delete"
+        >
           Excluir
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

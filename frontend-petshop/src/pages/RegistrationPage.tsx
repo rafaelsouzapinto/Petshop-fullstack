@@ -6,10 +6,10 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  TextField,
   Typography,
 } from "@mui/material";
 import "../styles/registration-page.css";
-import Header from "../components/Header";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Pets from "../interfaces/Pets";
@@ -25,6 +25,7 @@ export default function RegistrationPage() {
   const [formData, setFormData] = useState({
     amount: "",
     status: "",
+    description: "",
     petId: "",
     serviceId: "",
   });
@@ -44,6 +45,7 @@ export default function RegistrationPage() {
       const dataToSend = {
         finalPrice: parseFloat(formData.amount),
         serviceStatus: formData.status,
+        description: formData.description,
         pet: {
           id: parseInt(formData.petId),
         },
@@ -59,6 +61,7 @@ export default function RegistrationPage() {
       setFormData({
         amount: "",
         status: "",
+        description: "",
         petId: "",
         serviceId: "",
       });
@@ -140,7 +143,6 @@ export default function RegistrationPage() {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className="form-container">
           <img
@@ -155,7 +157,13 @@ export default function RegistrationPage() {
           />
 
           <div className="form-title">
-            <Typography variant="h5" component="h2" color="textSecondary">
+            <Typography
+              variant="h2"
+              component="h2"
+              sx={{
+                fontSize: "2.5em",
+              }}
+            >
               Cadastro de consultas
             </Typography>
           </div>
@@ -257,7 +265,6 @@ export default function RegistrationPage() {
               <Typography variant="h6" component="h2" color="textSecondary">
                 Serviço:
               </Typography>
-
               <FormControl required sx={{ m: 1, minWidth: 280 }}>
                 <InputLabel id="demo-simple-select-required-label">
                   Serviços
@@ -280,6 +287,25 @@ export default function RegistrationPage() {
                   ))}
                 </Select>
               </FormControl>
+            </div>
+            <div className="form-item">
+              <Typography variant="h6" component="h2" color="textSecondary">
+                Descrição:
+              </Typography>
+              <TextField
+                id="outlined-multiline-static"
+                name="description"
+                label="Descrição"
+                value={formData.description}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                defaultValue=""
+                sx={{
+                  m: 1,
+                  width: "280px",
+                }}
+              />
             </div>
             <PrimaryButton
               variant="contained"

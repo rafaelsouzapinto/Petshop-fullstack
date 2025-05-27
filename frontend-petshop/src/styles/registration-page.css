@@ -8,9 +8,10 @@
 
 .form-container {
   width: 350px;
-  height: 580px;
+  height: 780px;
   padding: 30px;
-  background-color: #779bd088;
+  background-color: #dce6f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 
   position: relative;
@@ -20,7 +21,7 @@
   top: 180px;
   right: 10px;
   width: 350px;
-  opacity: 0.4;
+  opacity: 0.3;
   pointer-events: none;
   z-index: 0;
 }
@@ -29,7 +30,7 @@
   top: 60px;
   right: -10px;
   width: 180px;
-  opacity: 0.4;
+  opacity: 0.3;
   pointer-events: none;
   z-index: 0;
 }
@@ -47,9 +48,8 @@
 
   .form-container {
     width: 900px;
-    height: 500px;
+    height: 650px;
     padding: 30px;
-    background-color: #779bd088;
     border-radius: 5px;
 
     position: relative;
@@ -60,7 +60,6 @@
     top: 100px;
     right: 60px;
     width: 420px;
-    opacity: 0.7;
     pointer-events: none;
     z-index: 0;
   }
@@ -69,14 +68,14 @@
     top: 60px;
     right: 20px;
     width: 180px;
-    opacity: 0.7;
     pointer-events: none;
     z-index: 0;
   }
 
   .form {
-    width: 400px;
+    width: 430px;
     background-color: #779bd042;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 5px;
   }
@@ -85,6 +84,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 370px;
+    width: 400px;
   }
 }

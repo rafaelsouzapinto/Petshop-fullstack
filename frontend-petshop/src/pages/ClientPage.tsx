@@ -6,18 +6,17 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/client-page.css";
 import { useState, useEffect } from "react";
 import Client from "../interfaces/Client";
-import { Search, UserPen, UserRoundPlus } from "lucide-react";
+import { Search, Trash2, UserPen, UserRoundPlus } from "lucide-react";
 import PrimaryButton from "../components/PrimaryButton";
 import Header from "../components/Header";
 import DeleteClientDialog from "../components/DeleteClientDialog";
 import axios from "axios";
-import AddClientDialog from "../components/AddClientDialog";
 import EditClientDialog from "../components/EditClientDialog";
+import AddClientDialog from "../components/AddClientDialog";
 
 const url = "http://localhost:8080/clients";
 
@@ -129,7 +128,7 @@ export default function ClientPage() {
                             variantStyle="delete"
                             onClick={() => handleDeleteClick(client)}
                           >
-                            <DeleteIcon fontSize="medium" />
+                            <Trash2 fontSize="medium" />
                           </PrimaryButton>
                         </div>
                       </TableCell>
