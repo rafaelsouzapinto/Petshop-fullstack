@@ -4,12 +4,12 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Button,
   MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Pets from "../interfaces/Pets";
+import PrimaryButton from "./PrimaryButton";
 
 interface EditPetDialogProps {
   open: boolean;
@@ -141,10 +141,17 @@ export default function EditPetDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleUpdatePet} variant="contained" color="primary">
+        <PrimaryButton onClick={onClose} variantStyle="delete">
+          Cancelar
+        </PrimaryButton>
+        <PrimaryButton
+          onClick={handleUpdatePet}
+          variant="contained"
+          color="primary"
+          variantStyle="primary"
+        >
           Salvar
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   );

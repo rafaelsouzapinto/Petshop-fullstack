@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/header.css";
 import PrimaryButton from "./PrimaryButton";
-import { Cat, FileInput, Users } from "lucide-react";
+import { Cat, Users } from "lucide-react";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -26,13 +26,6 @@ export default function Header() {
           >
             <Cat size={18} />
             Pets
-          </PrimaryButton>
-          <PrimaryButton
-            variantStyle="secondary"
-            onClick={() => navigate("/registration")}
-          >
-            <FileInput size={18} />
-            Cadastro
           </PrimaryButton>
         </div>
       </div>

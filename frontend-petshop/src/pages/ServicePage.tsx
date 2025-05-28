@@ -12,10 +12,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import { MenuItem, TextField, Typography } from "@mui/material";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { ServiceDialog } from "../components/ServiceDialog";
 import { AvailableServiceDialog } from "../components/AvailableServiceDialog";
+import RegistrationPage from "./RegistrationPage";
+import Footer from "../components/Footer";
 
 export type ServiceStatus =
   | "PENDING"
@@ -190,7 +193,9 @@ export default function ServicePage() {
           </Swiper>
         </div>
       </div>
-
+      <div className="register-container">
+        <RegistrationPage />
+      </div>
       <div className="registration-container">
         <div className="registration-details">
           <Typography
@@ -265,6 +270,7 @@ export default function ServicePage() {
         service={selectedService}
         onSave={handleSaveService}
       />
+      <Footer />
     </div>
   );
 }

@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .caroussel-container {
   display: flex;
   align-items: center;
@@ -11,7 +17,8 @@
   background-color: #dce6f1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  margin: 24px auto;
+  margin: auto;
+  margin-bottom: 24px;
   row-gap: 20px;
   text-align: center;
   display: flex;
@@ -25,7 +32,14 @@
   position: absolute;
   opacity: 0;
   pointer-events: none;
+  width: 10px;
   z-index: 0;
+}
+
+.register-container {
+  background-color: #dce6f156;
+  width: 100%;
+  margin-bottom: 24px;
 }
 
 .registration-items {
@@ -83,6 +97,7 @@
     position: absolute;
     top: 17%;
     right: 51%;
+    width: 550px;
     opacity: 0.3;
     pointer-events: none;
     z-index: 0;

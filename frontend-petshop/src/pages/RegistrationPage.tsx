@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import "../styles/registration-page.css";
-import Header from "../components/Header";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Pets from "../interfaces/Pets";
@@ -144,7 +143,6 @@ export default function RegistrationPage() {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className="form-container">
           <img
