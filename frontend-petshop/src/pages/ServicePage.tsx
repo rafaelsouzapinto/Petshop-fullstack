@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { MenuItem, TextField, Typography } from "@mui/material";
+import { MenuItem, Pagination, TextField, Typography } from "@mui/material";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { ServiceDialog } from "../components/ServiceDialog";
 import { AvailableServiceDialog } from "../components/AvailableServiceDialog";
@@ -29,6 +29,9 @@ export type ServiceStatus =
 export default function ServicePage() {
   const [registrations, setRegistration] = useState<Registration[]>([]);
   const [services, setServices] = useState<Service[]>([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const [searchPetName, setSearchPetName] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
@@ -149,6 +152,15 @@ export default function ServicePage() {
       });
   }, []);
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredRegistrations.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(filteredRegistrations.length / itemsPerPage);
+
   return (
     <div className="service-page-container">
       <div className="services-container">
@@ -216,7 +228,10 @@ export default function ServicePage() {
                 variant="outlined"
                 size="small"
                 value={searchPetName}
-                onChange={(e) => setSearchPetName(e.target.value)}
+                onChange={(e) => {
+                  setSearchPetName(e.target.value);
+                  setCurrentPage(1);
+                }}
               />
             </div>
 
@@ -227,7 +242,10 @@ export default function ServicePage() {
                 select
                 label="Filtrar por status"
                 value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
+                onChange={(e) => {
+                  setFilterStatus(e.target.value);
+                  setCurrentPage(1);
+                }}
                 size="small"
                 sx={{
                   width: "200px",
@@ -243,7 +261,7 @@ export default function ServicePage() {
           </div>
         </div>
         <div className="registration-items">
-          {filteredRegistrations.map((registration) => (
+          {currentItems.map((registration) => (
             <OngoingServiceCard
               key={registration.id}
               finalPrice={registration.finalPrice}
@@ -256,6 +274,22 @@ export default function ServicePage() {
               onClick={() => handleOpenDialog(registration)}
             />
           ))}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(_, value) => setCurrentPage(value)}
+            color="primary"
+            variant="outlined"
+            shape="rounded"
+          />
         </div>
       </div>
       <ServiceDialog
