@@ -9,13 +9,6 @@ No Backend, foi utilizado Java e Spring Boot para construir a API REST, com a pe
 
 No frontend, foi utilizado React com Typescript para criar uma interface moderna e responsiva, utilizando a abordagem "Mobile-First". Além disso, o uso de bibliotecas como Material UI e Lucide contribuiram para um visual mais agradável e funcional.
 
-## Tecnologias utilizadas 💻
-- Java
-- Spring Boot
-- Docker
-- TypeScript
-- React
-
 ## Telas da aplicação 🖥️
 <h1 align="center">
     <img src="./.github/welcome.png" width="400"/>
@@ -23,6 +16,20 @@ No frontend, foi utilizado React com Typescript para criar uma interface moderna
     <img src="./.github/clients.png" width="400"/>
     <img src="./.github/editPets.png" width="400"/>
 </h1>
+
+## Modelo conceitual 📝
+<h1 align="center">
+    <img src="./.github/modelo-conceitual.png" width="600"/>
+</h1>
+
+## Tecnologias utilizadas 💻
+- Java
+- Spring Boot
+- JPA / Hibernate
+- Docker
+- MySQL
+- TypeScript
+- React
 
 ## Como executar a aplicação ✔
 Para rodar a aplicação, primeiro subimos o container Docker com a imagem do banco de dados, em seguida, iniciamos a API Spring Boot, e por fim, iniciamos o React.
